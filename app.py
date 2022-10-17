@@ -19,25 +19,30 @@ df['Datum'] = pd.to_datetime(df['Datum'], format="%Y-%m-%dT%H:%M:%S")
 
 st.title("Gaszähler")
 placeholder = st.empty()
+placeholder_prophet = st.empty()
+show_prophet = placeholder_prophet.button("Vorhersagen berechnen")
 
-df_prophet = pd.read_csv("zaehlerstand.csv", sep="\t", names=["y", "ds"])
-m = Prophet()
-m.fit(df_prophet)
+if show_prophet:
+    with placeholder_prophet.container():
+        df_prophet = pd.read_csv("zaehlerstand.csv", sep="\t", names=["y", "ds"])
+        m = Prophet()
+        m.fit(df_prophet)
 
-future = m.make_future_dataframe(periods=365)
-forecast = m.predict(future)
+        future = m.make_future_dataframe(periods=365)
+        forecast = m.predict(future)
 
-st.markdown("### Vorhersagen")
-predict_col1, predict_col2 = st.columns(2)
-with predict_col1:
-    fig1 = plot_plotly(m, forecast)
-    st.write(fig1)
-with predict_col2:
-    fig2 = plot_components_plotly(m, forecast)
-    st.write(fig2)
+        st.markdown("### Vorhersagen")
+        predict_col1, predict_col2 = st.columns(2)
+        with predict_col1:
+            fig1 = plot_plotly(m, forecast)
+            st.write(fig1)
+        with predict_col2:
+            fig2 = plot_components_plotly(m, forecast)
+            st.write(fig2)
+        
+        export_with_prophet = st.download_button("Daten mit Vorhersagen exportieren", data=forecast.to_csv(sep="\t", index=False).encode("utf-8"), file_name="zaehlerstand.csv", mime="text/csv")
 
 export_button = st.download_button("Daten exportieren", data=df.to_csv(sep="\t", index=False).encode("utf-8"), file_name="zaehlerstand.csv", mime="text/csv")
-export_button = st.download_button("Daten mit Vorhersagen exportieren", data=forecast.to_csv(sep="\t", index=False).encode("utf-8"), file_name="zaehlerstand.csv", mime="text/csv")
 
 while True:
     with placeholder.container():
