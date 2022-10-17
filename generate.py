@@ -9,6 +9,6 @@ with open("zaehlerstand.csv", "a") as file:
     count = 0
     while count < 150:
         time += datetime.timedelta(0, 0, 0, 0, random.randint(0, 60), random.randint(0, 12))
-        stand += random.randint(1, 10) / 1000
-        writer.writerow([round(stand, 4), time.strftime("%Y-%m-%dT%H:%M:%S")])
+        stand += random.randint(1, 10) / 100
+        writer.writerow([round(stand, 2), time.strftime("%Y-%m-%dT%H:%M:%S")])
         count += 1

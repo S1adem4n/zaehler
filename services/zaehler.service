@@ -1,0 +1,12 @@
+[Unit]
+Description=Skript um zaehlerstand.csv zu aktualisieren, sobald ein Signal kommt
+Before=zaehler_front.service
+
+[Service]
+User=pi
+WorkingDirectory=/opt/zaehler
+ExecStart=/home/pi/.virtualenvs/zaehler/bin/python zaehler.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

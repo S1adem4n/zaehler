@@ -71,4 +71,4 @@ while True:
             fig_diff.update_yaxes(automargin="left+right+bottom+top")
             st.write(fig_diff)
         
-    time.sleep(1)
+    time.sleep(5)

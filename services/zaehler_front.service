@@ -1,0 +1,12 @@
+[Unit]
+Description=Frontend für den Zähler
+After=zaehler.service
+
+[Service]
+User=pi
+WorkingDirectory=/opt/zaehler
+ExecStart=/home/pi/.virtualenvs/zaehler/bin/python -m streamlit run app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
