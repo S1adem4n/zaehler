@@ -3,7 +3,7 @@ Description=Frontend für den Zähler
 After=zaehler.service
 
 [Service]
-User=pi
+User=root
 WorkingDirectory=/opt/zaehler
 ExecStart=/home/pi/.virtualenvs/zaehler/bin/python -m streamlit run Gaszähler.py
 Restart=always

@@ -1,4 +1,5 @@
 import csv
+import subprocess
 import datetime
 import streamlit as st
 import pandas as pd
@@ -26,4 +27,5 @@ if st.button("Zurücksetzen"):
         writer = csv.writer(file, dialect="excel-tab")
         time = datetime.datetime.now()
         writer.writerow([reset_count_input, time.strftime("%Y-%m-%dT%H:%M:%S")])
+    subprocess.call(["systemctl", "restart", "zaehler.service"])
     st.success("Zählerstand erfolgreich zurückgesetzt!")
