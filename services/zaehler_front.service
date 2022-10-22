@@ -5,7 +5,7 @@ After=zaehler.service
 [Service]
 User=pi
 WorkingDirectory=/opt/zaehler
-ExecStart=/home/pi/.virtualenvs/zaehler/bin/python -m streamlit run app.py
+ExecStart=/home/pi/.virtualenvs/zaehler/bin/python -m streamlit run Gaszähler.py
 Restart=always
 
 [Install]
